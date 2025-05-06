@@ -95,4 +95,3 @@ Desarrollado por **Samuel Enrique García Díaz**
 
 ---
 
-Este repositorio puede usarse para presentar en convocatorias oficiales como el **SEPE** o para futuros despliegues SaaS reales.
