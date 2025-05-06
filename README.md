@@ -90,7 +90,7 @@ Puedes estudiar y adaptar el código, pero no usarlo comercialmente sin autoriza
 
 ## 🤝 Autor y contacto
 
-Desarrollado por **Samuel Díaz García**  
+Desarrollado por **Samuel Enrique García Díaz**  
 📫 [sam.dgarcia02@gmail.com](mailto:sam.dgarcia02@gmail.com)
 
 ---
