@@ -24,7 +24,7 @@
 1. Clona este repositorio:
 
 ```bash
-git clone https://github.com/tu_usuario/ocaso.git
+git clone https://github.com/wkeysam/OcasoNotes.git
 cd ocaso
 ```
 
