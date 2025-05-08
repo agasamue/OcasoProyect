@@ -1,0 +1,11 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+boto3
+psycopg2-binary
+Werkzeug
+requests
+gunicorn
+python-dotenv
+zappa
+mangum

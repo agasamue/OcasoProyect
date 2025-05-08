@@ -1,0 +1,10 @@
+# Ignorar archivos sensibles
+.env
+*.env
+logs/
+*.log
+__pycache__/
+*.pyc
+venv/
+awsproyect/
+bot/

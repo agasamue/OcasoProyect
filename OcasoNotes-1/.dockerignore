@@ -1,0 +1,20 @@
+
+# Ignorar carpetas grandes e innecesarias
+*.env
+*.log
+logs/
+__pycache__/
+*.pyc
+.vscode/
+*.tar.gz
+*.zip
+*.tgz
+node_modules/
+*.db
+*.sqlite
+*.tar
+.env.*
+*.pem
+.git
+.gitignore
+README.md
