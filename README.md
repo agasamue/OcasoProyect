@@ -122,3 +122,5 @@ Como mecenas puedes recibir:
 #Python #Flask #AWS #Docker #PostgreSQL #Lambda #SQLAlchemy #API  
 #RedSocial #BienestarDigital #Reflexión #Autenticación #SaaS #Seguridad  
 #Apache2 #OpenSource #TechForGood #SelfImprovement #MentalHealth
+
+No dejes que nadie destruya lo que llevas tiempo construyendo. 💪🏽
