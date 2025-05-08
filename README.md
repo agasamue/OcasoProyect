@@ -123,4 +123,5 @@ Como mecenas puedes recibir:
 #RedSocial #BienestarDigital #Reflexión #Autenticación #SaaS #Seguridad  
 #Apache2 #OpenSource #TechForGood #SelfImprovement #MentalHealth
 
-No dejes que nadie destruya lo que llevas tiempo construyendo. 💪🏽
+> No dejes que nadie destruya lo que llevas tiempo construyendo con esfuerzo. 💪🏽
+
