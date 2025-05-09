@@ -37,13 +37,12 @@
   <h1>Inicia sesión en Ocaso</h1>
   <form method="POST" action="{{ url_for('auth.login') }}">
     <input name="username" placeholder="Nombre de usuario" required><br>
-    <input name="pin" type="password" placeholder="PIN" required><br>
-    <input name="empresa" placeholder="Nombre de empresa" required><br>
+    <input name="Contraseña" type="password" placeholder="Contraseña" required><br>
     <button type="submit">Entrar</button>
   </form>
 
   <form action="/solicitar-cambio">
-    <button class="pin-btn">🔑 ¿Olvidaste tu PIN?</button>
+    <button class="pin-btn">🔑 ¿Olvidaste tu contraseña?</button>
   </form>
 
 </body>

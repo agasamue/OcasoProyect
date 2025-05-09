@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Verificar PIN - Ocaso</title>
+  <title>Verificar Contraseña - Ocaso</title>
   <style>
     body { font-family: 'Segoe UI', sans-serif; background: #fff; text-align: center; margin-top: 100px; }
     input, button {
@@ -31,12 +31,12 @@
     {% endif %}
   {% endwith %}
 
-  <h1>Verifica tu PIN</h1>
+  <h1>Verifica tu contraseña</h1>
 
   <p>Usuario: <strong>{{ email or session.get('email', 'Desconocido') }}</strong></p>
 
   <form method="POST" action="{{ url_for('auth.verificar_pin') }}">
-    <input name="pin" type="password" placeholder="Introduce tu PIN" required><br>
+    <input name="pin" type="password" placeholder="Introduce tu contraseña" required><br>
     <button type="submit">Verificar</button>
   </form>
 
