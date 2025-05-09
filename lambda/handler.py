@@ -1,7 +1,7 @@
 import boto3
 import gzip
 import csv
-import psycopg2
+import pg8000
 from io import BytesIO
 import os
 import json
@@ -17,7 +17,7 @@ def lambda_handler(event, context):
 
     db_name = "postgres"
     db_host = db_credentials["host"]
-    db_port = db_credentials["port"]
+    db_port = int(db_credentials["port"])
     db_user = db_credentials["username"]
     db_pass = db_credentials["password"]
 
@@ -36,39 +36,39 @@ def lambda_handler(event, context):
             continue
 
         try:
-            conn = psycopg2.connect(
-                dbname=db_name,
+            conn = pg8000.connect(
+                database=db_name,
                 user=db_user,
                 password=db_pass,
                 host=db_host,
-                port=db_port
+                port=db_port,
+                ssl_context=True
             )
-            with conn:
-                with conn.cursor() as cur:
-                    current_date = None
-                    for line in lines:
-                        line = line.strip()
-                        if not line:
-                            continue
-                        if line.startswith("Fecha:"):
-                            current_date = line.split("Fecha:")[1].strip()
-                        elif ":" in line and current_date:
-                            try:
-                                servicio, costo = line.split(":")
-                                servicio = servicio.strip()
-                                costo = float(costo.strip().replace("$", ""))
-                                cur.execute(
-                                    "INSERT INTO aws_costs (fecha, servicio, costo) VALUES (%s, %s, %s)",
-                                    (current_date, servicio, costo)
-                                )
-                            except Exception as parse_err:
-                                print(f"Error procesando línea: {line} - {parse_err}")
+            cursor = conn.cursor()
+            current_date = None
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith("Fecha:"):
+                    current_date = line.split("Fecha:")[1].strip()
+                elif ":" in line and current_date:
+                    try:
+                        servicio, costo = line.split(":")
+                        servicio = servicio.strip()
+                        costo = float(costo.strip().replace("$", ""))
+                        cursor.execute(
+                            "INSERT INTO aws_costs (fecha, servicio, costo) VALUES (%s, %s, %s)",
+                            (current_date, servicio, costo)
+                        )
+                    except Exception as parse_err:
+                        print(f"Error procesando línea: {line} - {parse_err}")
+            conn.commit()
+            cursor.close()
+            conn.close()
             print("Datos insertados correctamente.")
         except Exception as db_err:
-            print(f"Error al conectar o insertar en la base de datos: {db_err}")
-        finally:
-            if conn:
-                conn.close()
+            print(f"Error en base de datos: {db_err}")
 
     print("Finalizando función...")
 
