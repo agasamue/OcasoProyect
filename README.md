@@ -16,6 +16,7 @@
 - Seguridad avanzada: JWT, validación de IP, segmentación de acceso
 - Despliegue en AWS con EC2, RDS (PostgreSQL), S3, Lambda, etc.
 - Separación de módulos: `bot/`, `lambda/`, `tools/`, `scripts/`, `app/`
+
 /Atención se ha detectado que en AWS Lambda solo se reconoce el archivo handler.py como; lambda_function.py
 /Dado que solo puedes realizar testeos locales esto no debería porque afectarte. =)
 ---
