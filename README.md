@@ -124,4 +124,10 @@ Como mecenas puedes recibir:
 #Apache2 #OpenSource #TechForGood #SelfImprovement #MentalHealth
 
 > No dejes que nadie destruya lo que llevas tiempo construyendo con esfuerzo. 💪🏽
+## 🔐 Autenticación en desarrollo
+
+Este proyecto incluye un sistema de autenticación local por contraseña/pin (`verificar_pin.html`) para facilitar pruebas rápidas y contribuciones sin necesidad de configurar Cognito.
+
+En producción, el sistema usa Amazon Cognito para autenticar usuarios de forma segura.
+
 
