@@ -84,7 +84,7 @@ Este proyecto está licenciado bajo la **Apache License 2.0**.
 Puedes usar, modificar y distribuir este software libremente, incluso con fines comerciales, siempre que mantengas el aviso de copyright.
 
 Consulta el archivo [`LICENSE`](LICENSE) para más detalles.
-
+Contacto: sam.dgarcia02@gmail.com
 ---
 
 ## 💼 Uso Comercial
