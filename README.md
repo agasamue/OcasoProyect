@@ -130,6 +130,7 @@ Como mecenas puedes recibir:
 Este proyecto incluye un sistema de autenticación local por contraseña/pin (`verificar_pin.html`) para facilitar pruebas rápidas y contribuciones sin necesidad de configurar Cognito.
 
 En producción, el sistema usa Amazon Cognito para autenticar usuarios de forma segura.
+
 /Atención se ha detectado que en AWS Lambda solo se reconoce el archivo handler.py como; lambda_function.py
 /Dado que solo puedes realizar testeos locales esto no debería porque afectarte. =)
 
