@@ -3,6 +3,19 @@ import gzip
 import psycopg2
 from io import BytesIO
 import json
+import socket
+
+def lambda_handler(event, context):
+    try:
+        host = "proyectodtbia.cluster-cdkg6qo6gdcz.eu-north-1.rds.amazonaws.com"
+        port = 5432
+        socket.setdefaulttimeout(5)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((host, port))
+        print("Conexión exitosa al puerto 5432")
+        s.close()
+    except Exception as e:
+        print(f"Fallo de conexión: {e}")
 
 def get_db_credentials(secret_name="rds-db-credentials/agasmau", region="eu-north-1"):
     secrets_client = boto3.client("secretsmanager", region_name=region)
@@ -73,6 +86,7 @@ def lambda_handler(event, context):
                 conn.close()
 
     print("Finalizando función...")
+
 
 
 
