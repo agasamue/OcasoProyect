@@ -1,9 +1,7 @@
 import boto3
 import gzip
-import csv
 import psycopg2
 from io import BytesIO
-import os
 import json
 
 def get_db_credentials(secret_name="rds-db-credentials/agasmau", region="eu-north-1"):
@@ -26,6 +24,7 @@ def lambda_handler(event, context):
         key = record['s3']['object']['key']
         print(f"Procesando archivo: s3://{bucket}/{key}")
 
+        # Leer y descomprimir el archivo .gz
         try:
             response = s3.get_object(Bucket=bucket, Key=key)
             with gzip.GzipFile(fileobj=BytesIO(response['Body'].read())) as gz:
@@ -35,6 +34,8 @@ def lambda_handler(event, context):
             print(f"Error al leer el archivo S3: {e}")
             continue
 
+        # Conectar e insertar en la base de datos
+        conn = None
         try:
             conn = psycopg2.connect(
                 dbname=db_name,
@@ -42,6 +43,7 @@ def lambda_handler(event, context):
                 password=db_pass,
                 host=db_host,
                 port=db_port
+                connect_timeout=5
             )
             with conn:
                 with conn.cursor() as cur:
