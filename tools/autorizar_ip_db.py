@@ -35,8 +35,8 @@ def autorizar_ip_en_security_group(ip_publica, security_group_id, region, profil
 if __name__ == "__main__":
     # Variables que puedes adaptar según tu entorno
     SECURITY_GROUP_ID = "sg-xxxxxxxxxxxxx"
-    REGION = "eu-north-1"
-    PROFILE_NAME = "sediaz"
+    REGION = "xx-xxxx-x"
+    PROFILE_NAME = "xxxxxx"
 
     ip_publica = obtener_ip_publica()
     if ip_publica:
