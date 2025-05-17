@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* ========= Estilos generales ========= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #ffffff;
@@ -15,8 +15,15 @@ body {
     box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
 }
 
+h1, h2, h3 {
+    color: #2f4f4f;
+    margin-bottom: 20px;
+}
+
+/* ========= Formularios ========= */
 input[type="text"],
 input[type="password"],
+input[type="email"],
 select,
 textarea {
     width: 100%;
@@ -33,6 +40,7 @@ label {
     display: block;
 }
 
+/* ========= Botones ========= */
 button {
     background-color: #78b13f;
     color: white;
@@ -42,30 +50,80 @@ button {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 button:hover {
     background-color: #5a9e2f;
 }
 
-.flash-success {
-    color: green;
-    font-weight: bold;
+.pin-btn {
+    background: none;
+    color: #78b13f;
+    border: none;
+    font-size: 14px;
+    margin-top: 15px;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
-.flash-error {
-    color: red;
+.pin-btn:hover {
+    color: #5a9e2f;
+}
+
+/* ========= Flash messages ========= */
+.flash-message {
+    padding: 12px;
+    margin: 20px auto;
+    border-radius: 6px;
+    max-width: 600px;
     font-weight: bold;
+    text-align: center;
+}
+
+.flash-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.flash-danger {
+    background: #f8d7da;
+    color: #721c24;
 }
 
 .flash-warning {
-    color: orange;
-    font-weight: bold;
+    background: #fff3cd;
+    color: #856404;
 }
 
-/* Media Queries */
+/* ========= Reflexión personalizada ========= */
+.zona-reflexion {
+    background: #fff3cd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ddd;
+    margin-top: 30px;
+}
 
-/* Móviles pequeños (hasta 480px) */
+blockquote {
+    border-left: 4px solid #e0a800;
+    padding-left: 15px;
+    font-style: italic;
+    color: #444;
+    margin: 10px 0 20px;
+}
+
+/* ========= Contenedor de logs ========= */
+pre {
+    background: #f5f5f5;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 200px;
+    border-radius: 8px;
+    font-family: monospace;
+}
+
+/* ========= Responsive ========= */
 @media (max-width: 480px) {
     .container {
         width: 90%;
@@ -78,17 +136,14 @@ button:hover {
     }
 }
 
-/* Móviles grandes (hasta 768px) */
 @media (max-width: 768px) {
     .container {
         width: 80%;
     }
 }
 
-/* Tablets (hasta 1024px) */
 @media (max-width: 1024px) {
     .container {
         width: 70%;
     }
 }
-
