@@ -23,7 +23,7 @@ class TestingConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    DEBUG = False
+    DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")   # se valida después
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
