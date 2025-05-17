@@ -26,3 +26,13 @@ def marcar_como_atendida(solicitud_id):
     updated = c.rowcount
     conn.close()
     return updated > 0
+
+def registrar_solicitud(email, mensaje):
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    c.execute("""
+        INSERT INTO solicitudes_pin (email, mensaje, fecha, atendida)
+        VALUES (?, ?, ?, 0)
+    """, (email, mensaje, datetime.now()))
+    conn.commit()
+    conn.close()
