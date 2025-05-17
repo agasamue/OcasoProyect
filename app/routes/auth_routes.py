@@ -61,7 +61,7 @@ session["es_admin"] = user.es_admin
 
 @auth_bp.route("/registro", methods=["GET", "POST"])
 def registro():
-    username = request.form.get("username")
+username = request.form.get("username")
 pin = request.form.get("pin")
 
 if not username or not pin:
