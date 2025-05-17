@@ -47,10 +47,9 @@ def login():
             flash("Credenciales incorrectas", "error")
             return redirect(url_for("auth.login"))
 
+        session["username"] = user.username  # ✅ Añade esto
         session["user_id"] = user.id
-        session["username"] = user.username
-        session["email"] = user.username  # ✅ Para que el nombre aparezca luego
-        session["autenticado"] = True
+        session["autenticado"] = False
         session["es_admin"] = user.es_admin
 
         return redirect(url_for("main.home"))
