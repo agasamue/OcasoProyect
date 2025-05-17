@@ -91,14 +91,14 @@ def registro():
 
 @auth_bp.route("/verificar-pin", methods=["GET", "POST"])
 def verificar_pin():
+    username = session.get("username")  # Lo obtenemos al inicio
+
+    if not username:
+        flash("Primero debes iniciar sesión", "danger")
+        return redirect(url_for("auth.login"))
+
     if request.method == "POST":
         pin = request.form.get("pin")
-        username = session.get("username")  # <- usamos username, no email
-
-        if not username:
-            flash("Usuario no disponible en la sesión", "danger")
-            return redirect(url_for("auth.login"))
-
         user = User.query.filter_by(username=username).first()
 
         if user and user.check_pin(pin):
@@ -110,7 +110,7 @@ def verificar_pin():
             flash("PIN incorrecto", "danger")
 
     return render_template("verificar_pin.html")
-
+    
 @auth_bp.route("/logout")
 def logout():
     session.clear()
