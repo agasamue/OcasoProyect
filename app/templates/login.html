@@ -35,9 +35,11 @@
   {% endwith %}
 
   <h1>Inicia sesión en Ocaso</h1>
+
   <form method="POST" action="{{ url_for('auth.login') }}">
     <input name="username" placeholder="Nombre de usuario" required><br>
-    <input name="Contraseña" type="password" placeholder="Contraseña" required><br>
+    <input name="pin" type="password" placeholder="Contraseña" required><br>
+    <input name="empresa" placeholder="Nombre de la empresa" required><br>
     <button type="submit">Entrar</button>
   </form>
 
