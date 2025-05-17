@@ -8,6 +8,33 @@ from middleware.require_jwt import require_jwt
 auth_bp = Blueprint("auth", __name__)
 
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+@auth_bp.route("/dashboard")
+def dashboard():
+    if not session.get("autenticado"):
+        return redirect(url_for("auth.verificar_pin"))
+
+    user_id = session.get("user_id")
+    user = User.query.get(user_id)
+
+    notas = Reflexion.query.filter_by(usuario_id=user_id).order_by(Reflexion.fecha_creacion.desc()).all()
+
+    # Para gráfica
+    resumen = {}
+    for nota in notas:
+        fecha = nota.fecha_creacion.strftime("%Y-%m-%d")
+        resumen[fecha] = resumen.get(fecha, 0) + 1
+
+    fechas = list(resumen.keys())
+    cantidades = list(resumen.values())
+
+    return render_template(
+        "index.html",
+        notas_reflexion=notas,
+        fechas=fechas,
+        cantidades=cantidades,
+        total_reflexiones=len(notas),
+        ultima_fecha=notas[0].fecha_creacion.strftime("%d/%m/%Y") if notas else "N/A"
+    )
 @auth_bp.route('/api/protegido', methods=['GET'])
 @require_jwt
 def ruta_protegida():
