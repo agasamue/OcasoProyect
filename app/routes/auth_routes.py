@@ -93,13 +93,13 @@ def registro():
 def verificar_pin():
     if request.method == "POST":
         pin = request.form.get("pin")
-        email = session.get("email")
+        username = session.get("username")
 
         if not email:
             flash("Email no disponible en la sesión", "danger")
             return redirect(url_for("auth.verificar_pin"))
 
-        user = User.query.filter_by(username=email).first()
+        user = User.query.filter_by(username=username).first()
 
         if user and user.check_pin(pin):
             session["autenticado"] = True
