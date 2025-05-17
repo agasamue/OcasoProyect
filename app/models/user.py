@@ -19,7 +19,6 @@ class User(db.Model):
     activo = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    empresa_id = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
     def set_pin(self, pin):
         self.pin_hash = generate_password_hash(pin)
 
@@ -48,7 +47,6 @@ class Nota(db.Model):
     fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    empresa_id = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
 class ReflexionSugerida(db.Model):
     __tablename__ = "reflexiones"
 
@@ -56,5 +54,4 @@ class ReflexionSugerida(db.Model):
     texto = db.Column(db.Text, nullable=False)
     fecha = db.Column(db.DateTime, default=datetime.utcnow)
 
-    empresa_id = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
     activa = db.Column(db.Boolean, default=True)
