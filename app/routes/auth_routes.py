@@ -79,7 +79,7 @@ def registro():
         db.session.commit()
 
         session["user_id"] = user.id
-        session["username"] = user.username
+        session["email"] = username
         session["autenticado"] = False
 
         flash("Usuario registrado correctamente. Verifica tu PIN", "success")
