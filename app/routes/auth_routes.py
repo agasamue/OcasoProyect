@@ -17,6 +17,11 @@ def login_required(f):
             return redirect(url_for("auth.login"))
         return f(*args, **kwargs)
     return decorated
+    @auth_bp.route("/logout")
+def logout():
+    session.clear()
+    flash("Sesión cerrada correctamente", "success")
+    return redirect(url_for("auth.login"))
 @auth_bp.route("/dashboard")
 def dashboard():
     if not session.get("autenticado"):
