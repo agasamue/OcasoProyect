@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, flash
 from app.models import User, Reflexion
 from functools import wraps
 from datetime import datetime
-
+from middleware.require_auth import require_login_y_pin
 main_bp = Blueprint("main", __name__)
 
 # Decorador login_required
@@ -20,15 +20,13 @@ def login_required(f):
 def home():
     if not session.get("user_id"):
         return redirect(url_for("auth.login"))
-
     if not session.get("autenticado"):
         return redirect(url_for("auth.verificar_pin"))
-
     return redirect(url_for("main.dashboard"))
 
 # Dashboard con datos reales
 @main_bp.route("/dashboard")
-@login_required
+@require_login_y_pin
 def dashboard():
     user_id = session.get("user_id")
     user = User.query.get(user_id)
