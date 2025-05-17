@@ -9,6 +9,15 @@ auth_bp = Blueprint("auth", __name__)
 
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 @auth_bp.route("/dashboard")
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("autenticado"):
+            flash("Necesitas iniciar sesión", "warning")
+            return redirect(url_for("auth.login"))
+        return f(*args, **kwargs)
+    return decorated
+@auth_bp.route("/dashboard")
 def dashboard():
     if not session.get("autenticado"):
         return redirect(url_for("auth.verificar_pin"))
