@@ -26,11 +26,13 @@
 <body>
 
   <h1>Bienvenido a tu espacio en Ocaso</h1>
-<div class="section">
-  <h2>Resumen personal</h2>
-  <p>Total de reflexiones: <strong>{{ total_reflexiones }}</strong></p>
-  <p>Última reflexión: <strong>{{ ultima_fecha }}</strong></p>
-</div>
+
+  <div class="section">
+    <h2>Resumen personal</h2>
+    <p>Total de reflexiones: <strong>{{ total_reflexiones }}</strong></p>
+    <p>Última reflexión: <strong>{{ ultima_fecha }}</strong></p>
+  </div>
+
   <div class="section">
     <h2>Gastos en Tiempo Real</h2>
     <canvas id="graficoGastos" width="600" height="300"></canvas>
@@ -74,7 +76,7 @@
       Te quedan <strong>{{ dias_restantes }}</strong> días de reflexión.
     </p>
 
-    <form method="GET" action="/">
+    <form method="GET" action="/dashboard">
       <button style="background:none; color:#555; border:none; text-decoration: underline;">Seguir reflexionando más tarde</button>
     </form>
   </div>
@@ -85,18 +87,7 @@
       .then(res => res.json())
       .then(data => {
         document.getElementById('gastoAyer').textContent = data.gasto + ' USD';
-        const ctx = document.getElementById('graficoGastos').getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: {{ fechas | tojson }},
-    datasets: [{
-      label: 'Reflexiones por día',
-      data: {{ cantidades | tojson }},
-      backgroundColor: '#78b13f'
-    }]
-  }
-});
+
         const ctx = document.getElementById('graficoGastos').getContext('2d');
         new Chart(ctx, {
           type: 'line',
