@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, session, flash, jsonify
-from app.models import db, User, Empresa  
+from app.models import db, User
 import os
 from datetime import datetime
 from functools import wraps
