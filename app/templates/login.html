@@ -34,22 +34,28 @@
     {% endif %}
   {% endwith %}
 
-  <h1>Inicia sesión en Ocaso</h1>
+  {% extends "base.html" %}
+{% block title %}Iniciar Sesión - Ocaso{% endblock %}
+{% block content %}
 
-  <form method="POST" action="{{ url_for('auth.login') }}">
-    <input name="username" placeholder="Nombre de usuario" required><br>
-    <input name="pin" type="password" placeholder="Contraseña" required><br>
-    <input name="empresa" placeholder="Nombre de la empresa" required><br>
-    <button type="submit">Entrar</button>
-  </form>
+<h1>Inicia sesión en Ocaso</h1>
 
-  <form action="/solicitar-cambio">
-    <button class="pin-btn">🔑 ¿Olvidaste tu contraseña?</button>
-  </form>
+<form method="POST" action="{{ url_for('auth.login') }}">
+  <input name="username" placeholder="Nombre de usuario" required><br>
+  <input name="pin" type="password" placeholder="Contraseña" required><br>
+  <input name="empresa" placeholder="Nombre de la empresa" required><br>
+  <button type="submit">Entrar</button>
+</form>
 
-  <form action="{{ url_for('auth.registro') }}">
-    <button class="pin-btn">¿No tienes cuenta? Regístrate aquí</button>
-  </form>
+<form action="/solicitar-cambio">
+  <button class="pin-btn">🔑 ¿Olvidaste tu contraseña?</button>
+</form>
+
+<form action="{{ url_for('auth.registro') }}">
+  <button class="pin-btn">¿No tienes cuenta? Regístrate aquí</button>
+</form>
+
+{% endblock %}
 
 </body>
 </html>
