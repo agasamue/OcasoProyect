@@ -216,7 +216,7 @@ def convertirme_admin():
         return redirect(url_for("main.home"))
 
     username = session.get("username")
-user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
 
     if user:
         user.es_admin = True
@@ -227,6 +227,7 @@ user = User.query.filter_by(username=username).first()
         flash("Usuario no encontrado", "danger")
 
     return redirect(url_for("main.home"))
+
 
 
 # ================================
