@@ -127,8 +127,7 @@ Como mecenas puedes recibir:
 > No dejes que nadie destruya lo que llevas tiempo construyendo con esfuerzo. 💪🏽
 ## 🔐 Aplicación en desarrollo
 
-Este proyecto incluye un sistema de autenticación local por contraseña/pin (`verificar_pin.html`) para facilitar pruebas rápidas y contribuciones sin necesidad de configurar Cognito.
-
-En producción, el sistema usa Amazon Cognito para autenticar usuarios de forma segura.
+Se puede lanzar perfectamente en RENDER= https://dashboard.render.com/
+Se recomienda enlazar con neon.
 
 
