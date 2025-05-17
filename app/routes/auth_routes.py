@@ -47,14 +47,16 @@ def login():
             flash("Credenciales incorrectas", "error")
             return redirect(url_for("auth.login"))
 
-        session["username"] = user.username  # ✅ Añade esto
+        # Guardamos en la sesión
         session["user_id"] = user.id
+        session["username"] = user.username
         session["autenticado"] = False
         session["es_admin"] = user.es_admin
 
-        return redirect(url_for("main.home"))
+        return redirect(url_for("auth.verificar_pin"))
 
     return render_template("login.html")
+
 
 @auth_bp.route("/registro", methods=["GET", "POST"])
 def registro():
@@ -87,29 +89,27 @@ def registro():
 
     return render_template("registro.html")
 
-
-
 @auth_bp.route("/verificar-pin", methods=["GET", "POST"])
 def verificar_pin():
     if request.method == "POST":
         pin = request.form.get("pin")
-        username = session.get("username")
+        username = session.get("username")  # <- usamos username, no email
 
-        if not email:
-            flash("Email no disponible en la sesión", "danger")
-            return redirect(url_for("auth.verificar_pin"))
+        if not username:
+            flash("Usuario no disponible en la sesión", "danger")
+            return redirect(url_for("auth.login"))
 
         user = User.query.filter_by(username=username).first()
 
         if user and user.check_pin(pin):
             session["autenticado"] = True
             session["es_admin"] = user.es_admin
-            return redirect(url_for("main.home"))
+            flash("Verificación completada", "success")
+            return redirect(url_for("main.dashboard"))
         else:
             flash("PIN incorrecto", "danger")
 
-    return render_template("verificar_pin.html", email=session.get("email"))
-
+    return render_template("verificar_pin.html")
 
 @auth_bp.route("/logout")
 def logout():
