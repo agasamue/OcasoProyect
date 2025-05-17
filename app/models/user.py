@@ -4,10 +4,6 @@ from datetime import datetime
 
 # Roles permitidos
 ROLES_VALIDOS = ["admin", "usuario", "supervisor", "auditor"]
-class Empresa(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100), unique=True)
-    fecha_registro = db.Column(db.DateTime, default=datetime.utcnow)
 
 class User(db.Model):
     __tablename__ = "users"
