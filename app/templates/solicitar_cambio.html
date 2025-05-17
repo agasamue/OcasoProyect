@@ -18,8 +18,8 @@
     {% endwith %}
 
     <form method="POST" action="{{ url_for('auth.solicitar_cambio') }}">
-      <label for="email">Correo electrónico o nombre de usuario</label>
-      <input type="text" id="email" name="email" placeholder="ejemplo@ocaso.com" required>
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="ejemplo@ocaso.com" required>
 
       <label for="mensaje">Mensaje para el administrador (opcional)</label>
       <textarea name="mensaje" id="mensaje" rows="4" placeholder="Explica por qué necesitas el cambio..."></textarea>
