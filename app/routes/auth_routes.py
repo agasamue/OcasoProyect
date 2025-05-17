@@ -48,7 +48,7 @@ def login():
             return redirect(url_for("auth.login"))
 
         session["user_id"] = user.id
-        session["username"] = user.username
+        session["email"] = user.username
         session["autenticado"] = True
         session["es_admin"] = user.es_admin
 
