@@ -36,3 +36,18 @@ def registrar_solicitud(email, mensaje):
     """, (email, mensaje, datetime.now()))
     conn.commit()
     conn.close()
+
+def crear_tabla_si_no_existe():
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS solicitudes_pin (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            mensaje TEXT,
+            fecha TEXT,
+            atendida INTEGER DEFAULT 0
+        )
+    """)
+    conn.commit()
+    conn.close()
