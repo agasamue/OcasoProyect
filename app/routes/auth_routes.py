@@ -48,15 +48,14 @@ def login():
             return redirect(url_for("auth.login"))
 
         session["user_id"] = user.id
-        session["email"] = user.username
+        session["username"] = user.username
+        session["email"] = user.username  # ✅ Para que el nombre aparezca luego
         session["autenticado"] = True
         session["es_admin"] = user.es_admin
 
         return redirect(url_for("main.home"))
 
     return render_template("login.html")
-
-
 
 @auth_bp.route("/registro", methods=["GET", "POST"])
 def registro():
@@ -78,14 +77,17 @@ def registro():
         db.session.add(user)
         db.session.commit()
 
+        # Guardar en sesión
+        session["username"] = username
         session["user_id"] = user.id
-        session["email"] = username
+        session["email"] = username  # ✅ IMPORTANTE para que aparezca en /verificar-pin
         session["autenticado"] = False
 
         flash("Usuario registrado correctamente. Verifica tu PIN", "success")
         return redirect(url_for("auth.verificar_pin"))
 
     return render_template("registro.html")
+
 
 
 @auth_bp.route("/verificar-pin", methods=["GET", "POST"])
