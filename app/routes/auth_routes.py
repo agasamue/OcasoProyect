@@ -129,6 +129,24 @@ def logout():
     flash("Sesión cerrada correctamente", "success")
     return redirect(url_for("auth.login"))
 
+@auth_bp.route("/solicitar-cambio", methods=["GET", "POST"])
+def solicitar_cambio():
+    if request.method == "POST":
+        email = request.form.get("email")
+        mensaje = request.form.get("mensaje", "")
+
+        if not email:
+            flash("El campo de correo o usuario es obligatorio", "danger")
+            return redirect(url_for("auth.solicitar_cambio"))
+
+        # Guardar la solicitud en el sistema manual (CSV)
+        from tools.manual_pin_change import registrar_solicitud
+        registrar_solicitud(email=email, mensaje=mensaje)
+
+        flash("Solicitud enviada correctamente. Un administrador la revisará.", "success")
+        return redirect(url_for("auth.login"))
+
+    return render_template("solicitar_cambio.html")
 
 # ================================
 # RUTAS PROTEGIDAS
