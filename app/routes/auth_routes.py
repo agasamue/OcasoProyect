@@ -129,6 +129,7 @@ def logout():
     flash("Sesión cerrada correctamente", "success")
     return redirect(url_for("auth.login"))
 
+
 @auth_bp.route("/solicitar-cambio", methods=["GET", "POST"])
 def solicitar_cambio():
     if request.method == "POST":
