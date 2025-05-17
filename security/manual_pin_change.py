@@ -3,20 +3,29 @@ from datetime import datetime
 
 DB = 'users.db'
 
-def registrar_solicitud(user_id):
+def registrar_solicitud(email, mensaje):
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    c.execute("INSERT INTO solicitudes_pin (user_id, fecha) VALUES (?, ?)", (user_id, datetime.now()))
+    c.execute("INSERT INTO solicitudes_pin (email, mensaje, fecha) VALUES (?, ?, ?)", (email, mensaje, datetime.now().strftime("%Y-%m-%d")))
     conn.commit()
     conn.close()
 
 def listar_solicitudes():
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    c.execute("SELECT * FROM solicitudes_pin")
+    c.execute("SELECT id, email, mensaje, fecha, atendida FROM solicitudes_pin ORDER BY fecha DESC")
     data = c.fetchall()
     conn.close()
-    return data
+    solicitudes = []
+    for s in data:
+        solicitudes.append({
+            "id": s[0],
+            "email": s[1],
+            "mensaje": s[2],
+            "fecha": s[3],
+            "atendida": bool(s[4])
+        })
+    return solicitudes
 
 def marcar_como_atendida(solicitud_id):
     conn = sqlite3.connect(DB)
@@ -37,7 +46,7 @@ def crear_tabla_si_no_existe():
             mensaje TEXT,
             fecha TEXT,
             atendida INTEGER DEFAULT 0
-        );
+        )
     """)
     conn.commit()
     conn.close()
