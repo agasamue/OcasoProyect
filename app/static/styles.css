@@ -67,6 +67,12 @@ button:hover {
     text-decoration: underline;
 }
 
+button.pin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .pin-btn:hover {
     color: #5a9e2f;
 }
