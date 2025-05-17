@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, session, flash, jsonify
-from app.models import db, User
+from app.models import db, User, Empresa  
+import os
 from datetime import datetime
 from functools import wraps
 from middleware.require_jwt import require_jwt
-import os
 
 auth_bp = Blueprint("auth", __name__)
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
