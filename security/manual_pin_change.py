@@ -26,3 +26,18 @@ def marcar_como_atendida(solicitud_id):
     updated = c.rowcount
     conn.close()
     return updated > 0
+
+def crear_tabla_si_no_existe():
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS solicitudes_pin (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            mensaje TEXT,
+            fecha TEXT,
+            atendida INTEGER DEFAULT 0
+        );
+    """)
+    conn.commit()
+    conn.close()
