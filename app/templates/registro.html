@@ -12,6 +12,10 @@
     button {
       background-color: #78b13f; color: white; border: none; cursor: pointer;
     }
+    .pin-btn {
+      background: none; color: #78b13f; border: none; font-size: 14px;
+      margin-top: 20px; cursor: pointer;
+    }
     .flash-message {
       padding: 12px; margin: 20px auto; border-radius: 6px; max-width: 600px; font-weight: bold;
     }
@@ -31,11 +35,16 @@
   {% endwith %}
 
   <h1>Regístrate en Ocaso</h1>
+
   <form method="POST" action="{{ url_for('auth.registro') }}">
     <input name="username" placeholder="Nombre de usuario" required><br>
     <input name="pin" type="password" placeholder="Contraseña" required><br>
     <input name="empresa" placeholder="Nombre de la empresa" required><br>
     <button type="submit">Crear cuenta</button>
+  </form>
+
+  <form action="{{ url_for('auth.login') }}">
+    <button class="pin-btn">¿Ya tienes cuenta? Inicia sesión</button>
   </form>
 
 </body>
