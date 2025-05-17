@@ -41,65 +41,52 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         pin = request.form.get("pin")
-        empresa_nombre = request.form.get("empresa")
+        username = request.form.get("username")
+pin = request.form.get("pin")
 
-        empresa = Empresa.query.filter_by(nombre=empresa_nombre).first()
-        if not empresa:
-            flash("Empresa no encontrada", "error")
-            return redirect(url_for("auth.login"))
+user = User.query.filter_by(username=username).first()
 
-        user = User.query.filter_by(username=username, empresa_id=empresa.id).first()
+if not user or not user.check_pin(pin):
+    flash("Credenciales incorrectas", "error")
+    return redirect(url_for("auth.login"))
 
-        if not user or not user.check_pin(pin):
-            flash("Credenciales incorrectas", "error")
-            return redirect(url_for("auth.login"))
+session["user_id"] = user.id
+session["autenticado"] = True
+session["es_admin"] = user.es_admin
 
-        session["user_id"] = user.id
-        session["email"] = user.username
-        session["empresa_id"] = user.empresa_id
-        session["rol"] = user.rol
-        session["autenticado"] = False  # Esperando verificación de PIN
-
-        return redirect(url_for("auth.verificar_pin"))
+   return redirect(url_for("index.home"))
 
     return render_template("login.html")
 
 
 @auth_bp.route("/registro", methods=["GET", "POST"])
 def registro():
-    if request.method == "POST":
-        username = request.form.get("username")
-        pin = request.form.get("pin")
-        empresa_nombre = request.form.get("empresa")
+    username = request.form.get("username")
+pin = request.form.get("pin")
 
-        if not username or not pin or not empresa_nombre:
-            flash("Todos los campos son obligatorios", "danger")
-            return redirect(url_for("auth.registro"))
+if not username or not pin:
+    flash("Todos los campos son obligatorios", "danger")
+    return redirect(url_for("auth.registro"))
 
-        if User.query.filter_by(username=username).first():
-            flash("Este nombre de usuario ya está registrado", "warning")
-            return redirect(url_for("auth.registro"))
+if User.query.filter_by(username=username).first():
+    flash("Este nombre de usuario ya está registrado", "warning")
+    return redirect(url_for("auth.registro"))
 
-        empresa = Empresa.query.filter_by(nombre=empresa_nombre).first()
-        if not empresa:
-            flash("Empresa no válida o no encontrada", "danger")
-            return redirect(url_for("auth.registro"))
+user = User(username=username)
+user.set_pin(pin)
 
-        user = User(username=username, empresa_id=empresa.id)
-        user.set_pin(pin)
+db.session.add(user)
+db.session.commit()
 
-        db.session.add(user)
-        db.session.commit()
+session["username"] = username
+session["user_id"] = user.id
+session["autenticado"] = False
 
-        session["username"] = username
-        session["empresa_id"] = empresa.id
-        session["autenticado"] = False
+flash("Usuario registrado correctamente. Verifica tu PIN", "success")
+return redirect(url_for("auth.verificar_pin"))
 
-        flash("Usuario registrado correctamente. Verifica tu PIN", "success")
-        return redirect(url_for("auth.verificar_pin"))
 
     return render_template("registro.html")
-
 
 @auth_bp.route("/verificar-pin", methods=["GET", "POST"])
 def verificar_pin():
