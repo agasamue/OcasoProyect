@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Solicitar cambio de PIN - Ocaso</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Solicitar Cambio de Contraseña</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('auth.solicitar_cambio') }}">
+      <label for="email">Correo electrónico o nombre de usuario</label>
+      <input type="text" id="email" name="email" placeholder="ejemplo@ocaso.com" required>
+
+      <label for="mensaje">Mensaje para el administrador (opcional)</label>
+      <textarea name="mensaje" id="mensaje" rows="4" placeholder="Explica por qué necesitas el cambio..."></textarea>
+
+      <button type="submit">Enviar solicitud</button>
+    </form>
+
+    <form action="{{ url_for('auth.login') }}" style="margin-top: 20px;">
+      <button class="pin-btn">⬅️ Volver al inicio de sesión</button>
+    </form>
+  </div>
+</body>
+</html>
