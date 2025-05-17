@@ -35,58 +35,58 @@ def solo_admin(f):
 # ================================
 # RUTAS PÚBLICAS
 # ================================
-
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         username = request.form.get("username")
         pin = request.form.get("pin")
-        username = request.form.get("username")
-pin = request.form.get("pin")
 
-user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first()
 
-if not user or not user.check_pin(pin):
-    flash("Credenciales incorrectas", "error")
-    return redirect(url_for("auth.login"))
+        if not user or not user.check_pin(pin):
+            flash("Credenciales incorrectas", "error")
+            return redirect(url_for("auth.login"))
 
-session["user_id"] = user.id
-session["autenticado"] = True
-session["es_admin"] = user.es_admin
+        session["user_id"] = user.id
+        session["username"] = user.username
+        session["autenticado"] = True
+        session["es_admin"] = user.es_admin
 
-   return redirect(url_for("index.home"))
+        return redirect(url_for("main.home"))
 
     return render_template("login.html")
 
 
+
 @auth_bp.route("/registro", methods=["GET", "POST"])
 def registro():
-username = request.form.get("username")
-pin = request.form.get("pin")
+    if request.method == "POST":
+        username = request.form.get("username")
+        pin = request.form.get("pin")
 
-if not username or not pin:
-    flash("Todos los campos son obligatorios", "danger")
-    return redirect(url_for("auth.registro"))
+        if not username or not pin:
+            flash("Todos los campos son obligatorios", "danger")
+            return redirect(url_for("auth.registro"))
 
-if User.query.filter_by(username=username).first():
-    flash("Este nombre de usuario ya está registrado", "warning")
-    return redirect(url_for("auth.registro"))
+        if User.query.filter_by(username=username).first():
+            flash("Este nombre de usuario ya está registrado", "warning")
+            return redirect(url_for("auth.registro"))
 
-user = User(username=username)
-user.set_pin(pin)
+        user = User(username=username)
+        user.set_pin(pin)
 
-db.session.add(user)
-db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
-session["username"] = username
-session["user_id"] = user.id
-session["autenticado"] = False
+        session["user_id"] = user.id
+        session["username"] = user.username
+        session["autenticado"] = False
 
-flash("Usuario registrado correctamente. Verifica tu PIN", "success")
-return redirect(url_for("auth.verificar_pin"))
-
+        flash("Usuario registrado correctamente. Verifica tu PIN", "success")
+        return redirect(url_for("auth.verificar_pin"))
 
     return render_template("registro.html")
+
 
 @auth_bp.route("/verificar-pin", methods=["GET", "POST"])
 def verificar_pin():
@@ -215,8 +215,8 @@ def convertirme_admin():
         flash("Función desactivada por seguridad", "danger")
         return redirect(url_for("main.home"))
 
-    email = session.get("email")
-    user = User.query.filter_by(username=email).first()
+    username = session.get("username")
+user = User.query.filter_by(username=username).first()
 
     if user:
         user.es_admin = True
