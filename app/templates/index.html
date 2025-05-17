@@ -83,6 +83,18 @@
       .then(data => {
         document.getElementById('gastoAyer').textContent = data.gasto + ' USD';
         const ctx = document.getElementById('graficoGastos').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: {{ fechas | tojson }},
+    datasets: [{
+      label: 'Reflexiones por día',
+      data: {{ cantidades | tojson }},
+      backgroundColor: '#78b13f'
+    }]
+  }
+});
+        const ctx = document.getElementById('graficoGastos').getContext('2d');
         new Chart(ctx, {
           type: 'line',
           data: {
